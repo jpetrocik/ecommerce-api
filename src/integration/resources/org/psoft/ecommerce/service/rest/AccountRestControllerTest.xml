@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+
+    <account_type id="1" name="default" />  
+    <account account_type_id="1" email="joe@gmail.com"  passsalt="324324" password="324fdsfe23442=doe=" suspended="false" created_on="2016-05-22"/>
+</dataset>

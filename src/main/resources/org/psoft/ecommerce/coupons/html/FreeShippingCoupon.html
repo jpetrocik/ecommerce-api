@@ -1,0 +1,69 @@
+<label>Code:</label>
+<input type="text" name="code" size="15" class="required" value="$!coupon.code"/>
+<span style="display:none" class="advice" id="advice-code"><img align="absmiddle" src="images/required.jpg"/></span>
+<div style="clear:left"></div>
+
+<label>Descr:</label>
+<textarea name="descr" cols="45" rows="5">$!coupon.descr</textarea>
+<div style="clear:left"></div>
+
+<label>Start Date:</label>
+<input type="text" name="startDate" id="startDate" class="required" size="13" value="$!date.format("yyyy-MM-dd",$coupon.startDate)"/>&nbsp;<img id="startCalendar" align="absmiddle" src="images/calendar.gif"/>
+<span style="display:none" class="advice" id="advice-startDate"><img align="absmiddle" src="images/required.jpg"/></span>
+<div style="clear:left"></div>
+
+<label>End Date:</label>
+<input type="text" name="endDate" id="endDate" class="required" size="13" value="$!date.format("yyyy-MM-dd",$coupon.endDate)"/>&nbsp;<img id="endCalendar" align="absmiddle" src="images/calendar.gif"/>
+<span style="display:none" class="advice" id="advice-endDate"><img align="absmiddle" src="images/required.jpg"/></span>
+<div style="clear:left"></div>
+
+<label>Active:</label>
+<select name="status">
+<option value="yes" #if( $coupon.active) selected="selected" #end>Yes</option>
+<option value="no" #if( !$coupon.active) selected="selected" #end/>No</option>
+</select>
+<div style="clear:left"></div>
+
+<label>Account Type:</label>
+<select name="accountType" class="validate-selection">
+<option>---------</option>
+#foreach( $type in $accountTypes )
+<option value="$type.id" #if( $type.id == $coupon.accountType.id) selected="selected" #end/>$type.name</option>
+#end
+</select>
+<span style="display:none" class="advice" id="advice-accountType"><img align="absmiddle" src="images/required.jpg"/></span>
+<div style="clear:left"></div>
+
+
+<label>Shipping Level:</label>
+<select name="value2">
+#foreach( $level in $shippingLevels )
+<option value="$level.id" #if( $level.id == $coupon.shippingLevel.id) selected="selected" #end/>$level.description</option>
+#end
+</select>
+<div style="clear:left"></div>
+
+<label>Exclusive:</label>
+<select name="exculsive">
+<option value="yes" #if( $coupon.exculsive) selected="selected" #end>Yes</option>
+<option value="no"/ #if( $coupon.exculsive) selected="selected" #end>No</option>
+</select>
+<div style="clear:left"></div>
+
+<label>Minimum:</label>
+<input type="text" name="value1" class="required" value="$!coupon.value1" />
+<span style="display:none" class="advice" id="advice-value1"><img align="absmiddle" src="images/required.jpg"/></span>
+<div style="clear:left"></div>
+
+
+<script>
+    Calendar.setup({
+        dateField     : 'startDate',
+        triggerElement : 'startCalendar'
+      });
+
+    Calendar.setup({
+        dateField     : 'endDate',
+        triggerElement : 'endCalendar'
+      });
+</script>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class discriminator-value="sales" table="category" name="com.curvecom.ore.data.SalesItemCategory">
+    <id name="id" column="id">
+      <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+        <param name="sequence_name">master_seq</param>
+        <param name="increment_size">1</param>
+        <param name="value_column">id</param>
+      </generator>
+    </id>
+    <property name="isActive"/>
+    <property name="title" not-null="true"/>
+    <property name="shortDescr"/>
+    <property name="longDescr"/>
+    <property name="keywords"/>
+    <list cascade="all" access="field" lazy="true" table="category_to_category" name="subcategories">
+      <key column="from_category_id"/>
+      <index column="sequence"/>
+      <many-to-many class="org.psoft.ecommerce.data.Category" column="to_category_id"/>
+    </list>
+    <set inverse="true" access="field" lazy="true" table="category_to_category" name="parents">
+      <key column="to_category_id"/>
+      <many-to-many class="org.psoft.ecommerce.data.Category" column="from_category_id"/>
+    </set>
+    <list cascade="all" access="field" lazy="true" table="category_to_product" name="products">
+      <key column="category_id"/>
+      <index column="sequence"/>
+      <many-to-many class="org.psoft.ecommerce.data.Product" column="product_id"/>
+    </list>
+    <list cascade="all-delete-orphan" access="field" lazy="true" table="image" name="images">
+      <key column="foreign_id"/>
+      <index column="sequence"/>
+      <one-to-many class="org.psoft.ecommerce.data.Image"/>
+    </list>
+  </class>
+</hibernate-mapping>

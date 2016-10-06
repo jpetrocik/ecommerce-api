@@ -1,0 +1,113 @@
+package org.psoft.ecommerce.rpc;
+
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.psoft.ecommerce.data.Category;
+import org.psoft.ecommerce.data.Product;
+import org.psoft.ecommerce.rpc.view.CategoryView;
+import org.psoft.ecommerce.rpc.view.ProductView;
+import org.psoft.ecommerce.service.CatalogService;
+
+
+public class CatalogRpcService {
+
+	CatalogService catalogService;
+
+	CategoryViewTransformer categoryViewTransformer = new CategoryViewTransformer();
+
+	public CategoryView saveCategory(Long id, boolean isActive, String title, String longDescr, String keywords, String shortDescr) {
+		Category category = catalogService.saveCategory(id, isActive, title, longDescr, keywords, shortDescr);
+
+		return (CategoryView) categoryViewTransformer.transform(category);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<CategoryView> retrieveAllCategories() {
+		List<Category> results = catalogService.retrieveAllCategories();
+
+		return (List<CategoryView>) CollectionUtils.collect(results, categoryViewTransformer);
+	}
+
+	public CategoryView retrieveById(Long id) {
+		Category category = catalogService.retrieveById(id);
+
+		return (CategoryView) categoryViewTransformer.transform(category);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<CategoryView> retrieveSubCategoriesByParentId(Long id) {
+		Category category = catalogService.retrieveById(id);
+
+		List<Category> results = category.getSubcategories();
+
+		return (List<CategoryView>) CollectionUtils.collect(results, categoryViewTransformer);
+	}
+
+	public void moveDown(Long parentId, Long childId) {
+
+		Category parent = catalogService.retrieveById(parentId);
+		Category child = catalogService.retrieveById(childId);
+
+		catalogService.moveDown(parent, child);
+
+	}
+
+	public void moveUp(Long parentId, Long childId) {
+		Category parent = catalogService.retrieveById(parentId);
+		Category child = catalogService.retrieveById(childId);
+
+		catalogService.moveUp(parent, child);
+
+	}
+
+	public void addSubcategory(Long parentId, Long childId) {
+		catalogService.addSubcategory(parentId, childId);
+	}
+
+	public ProductView addProduct(Long categoryId, Long productId) {
+		Product product = catalogService.addProduct(categoryId, productId);
+
+		return new ProductView(product);
+	}
+
+	public void removeProduct(Long categoryId, Long productId) {
+		catalogService.removeProduct(categoryId, productId);
+	}
+
+	public void removeParent(Long parentId, Long categoryId) {
+		catalogService.removeParent(parentId, categoryId);
+	}
+
+	public CategoryView addParent(Long categoryId, Long parentId) {
+		Category category = catalogService.addParent(categoryId, parentId);
+
+		return (CategoryView) categoryViewTransformer.transform(category);
+	}
+
+	public void deleteCategory(Long category) {
+		catalogService.deleteCategory(category);
+	}
+
+	public void moveProduct(Long categoryId, Long productId, int index) {
+		catalogService.moveProduct(categoryId, productId, index);
+	}
+
+	public void setCatalogService(CatalogService catalogService) {
+		this.catalogService = catalogService;
+	}
+
+	public class CategoryViewTransformer implements Transformer {
+
+		public Object transform(Object object) {
+
+			Category category = (Category) object;
+			CategoryView categoryView = new CategoryView(category);
+
+			return categoryView;
+		}
+
+	}
+
+}

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<category id="1" title="category1" isActive="1"/>
+	<category id="2" title="category2" isActive="1"/>
+	<category id="3" title="category3" isActive="1"/>
+	<category id="4" title="category4" isActive="1"/>
+	<category id="5" title="category5" isActive="1"/>
+	<category id="6" title="category6" isActive="1"/>
+	<category id="7" title="category7" isActive="1"/>
+
+	<category_to_category sequence="0" from_category_id="1" to_category_id="2" />
+	<category_to_category sequence="1" from_category_id="1" to_category_id="3" />
+	<category_to_category sequence="2" from_category_id="1" to_category_id="4" />
+	<category_to_category sequence="0" from_category_id="4" to_category_id="5" />
+	<category_to_category sequence="0" from_category_id="5" to_category_id="6" />
+	<category_to_category sequence="0" from_category_id="6" to_category_id="7" />
+
+    <category_to_product category_id="7" product_id="1" sequence="0"/>
+  
+    <product id="1" title="product1" isActive="true" />  
+    
+</dataset>

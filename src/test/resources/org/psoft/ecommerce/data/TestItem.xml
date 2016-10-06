@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/estore.xsd">
+    <item id="1" partNum="SDG123"/>
+    <pricing id="1" startDate="2010-01-01" item_id="1" price="10.00" pricing_level_id="1"/>
+    <pricing id="2" startDate="2010-01-01" item_id="1" price="5.50" pricing_level_id="2"/>
+    <pricing id="3" startDate="2010-05-01" endDate="2010-05-10" item_id="1" price="9.50" pricing_level_id="3"/>
+    <pricing id="4" startDate="2010-06-01" endDate="2015-06-01" item_id="1" price="8.50" pricing_level_id="4"/>
+
+    <pricing_level id="1" name="Web"/>
+    <pricing_level id="2" name="Wholeseler"/>
+    <pricing_level id="3" name="Sale"/>
+    <pricing_level id="4" name="Clearance"/>
+
+	<account_type id="1" name="Consumer"/>
+	<account_type id="2" name="Wholeseller"/>
+	
+	<account_type_to_pricing_level account_type_id="1" pricing_level_id="1"/>
+	<account_type_to_pricing_level account_type_id="1" pricing_level_id="3"/>
+	<account_type_to_pricing_level account_type_id="1" pricing_level_id="4"/>
+	
+	<account_type_to_pricing_level account_type_id="2" pricing_level_id="2"/>
+</dataset>

@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/dataset.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ 	<settings name="authorizeNet_testMode" value="true"/>
+ 	<settings name="authorizeNet_transactionKey" value="w70vLBF2VE+jSjAk0K9gZoH7IyofzKa+"/>
+ 	<settings name="authorizeNet_apiLogin" value="STtP/rVPga4za3WJNhWxmQ=="/>
+</dataset>

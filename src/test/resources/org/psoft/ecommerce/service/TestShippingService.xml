@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/dataset.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <account id="1" email="jdoe@something.com"/>
+    <address id="1" name="John Doe" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+    <address id="2" name="John Doe" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+    <order_tbl id="1" orderNum="100-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Approved" discount="0" shipping="0" subtotal="0" tax="0" total="0"/>
+    <order_tbl id="2" orderNum="102-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Approved" discount="0" shipping="0" subtotal="0" tax="0" total="0"/>
+    <order_tbl id="3" orderNum="103-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Declined" discount="0" shipping="0" subtotal="0" tax="0" total="0"/>
+    <order_tbl id="4" orderNum="104-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Warehoused" discount="0" shipping="0" subtotal="0" tax="0" total="0"/>
+    <order_tbl id="5" orderNum="105-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Warehoused" discount="0" shipping="0" subtotal="0" tax="0" total="0"/>
+    <order_tbl id="6" orderNum="106-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Warehoused" discount="0" shipping="0" subtotal="0" tax="0" total="0"/>
+    <payment id="1" order_id="4"/> 
+    <payment id="2" order_id="5"/> 
+    <payment id="3" order_id="6"/> 
+	
+	<shipment id="1" orderNum="99-1-1" trackingNumber="To cleanup test generated records"/>
+</dataset>

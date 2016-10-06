@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="estore" xsi:schemaLocation="estore ../../../../../../../target/xsd/estore.xsd ">
+    
+    <pricing_leveL id="1" name="Sale"/>
+    
+    <category id="1" isActive="true" title="category1" smart_type="sales"/>
+    
+    <product id="1" title="product1" isActive="true"/>
+
+    <item id="1" product_id="1" title="product1"/>
+    
+    <pricing id="1" startDate="2010-10-01" pricing_level_id="1" price="10" item_id="1"/>
+    
+    </dataset>

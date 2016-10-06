@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="coupon_values" name="org.psoft.ecommerce.data.CouponValues">
+    <id name="id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="code"/>
+    <property name="descr"/>
+    <property name="couponClass"/>
+    <property name="endDate" type="timestamp"/>
+    <property name="active"/>
+    <property name="exculsive"/>
+    <many-to-one column="account_type_id" class="org.psoft.ecommerce.data.AccountType" not-null="true" name="accountType"/>
+    <property name="startDate" type="timestamp"/>
+    <property name="value1"/>
+    <property name="value2"/>
+    <property name="value3"/>
+    <property name="value4"/>
+    <property name="value5"/>
+    <property name="value6"/>
+    <property name="value7"/>
+    <property name="value8"/>
+    <property name="value9"/>
+    <property name="value10"/>
+  </class>
+</hibernate-mapping>

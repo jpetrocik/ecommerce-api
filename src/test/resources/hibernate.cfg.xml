@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- properties -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="show_sql">true</property>
+
+		<!-- mapping files -->
+		<mapping resource="com/curvecom/ore/data/Document.hbm.xml"/>
+        <mapping resource="com/curvecom/ore/data/OreInventory.hbm.xml"/>
+		<mapping resource="com/curvecom/ore/data/OreShippingRate.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Account.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/AccountType.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/AttributeName.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/AttributeValue.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Address.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Category.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/CouponValues.hbm.xml"/>
+        <mapping resource="org/psoft/ecommerce/data/Group.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Item.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/ImageData.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Image.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Order.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/OrderDtl.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Payment.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Pricing.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/PricingLevel.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Product.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/ProductAssociation.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Setting.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/Shipment.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/ShipmentDetail.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/ShippingLevel.hbm.xml"/>
+		<mapping resource="org/psoft/ecommerce/data/State.hbm.xml"/>
+        <mapping resource="org/psoft/ecommerce/data/User.hbm.xml"/>
+		
+		<event type="post-load">
+            <listener class="org.psoft.ecommerce.hibernate.event.SessionAwareLoadEventListener"/>
+        </event>
+		
+	</session-factory>
+
+</hibernate-configuration>

@@ -1,0 +1,44 @@
+package org.psoft.ecommerce.rpc;
+
+import org.psoft.ecommerce.data.Account;
+import org.psoft.ecommerce.rpc.view.AccountView;
+import org.psoft.ecommerce.service.AccountService;
+
+public class AccountRpcService {
+
+	AccountService accountService;
+
+	public void upgradeAccount(Long accountId, String accountType) {
+		accountService.upgradeAccount(accountId, accountType);
+	}
+
+	public void net30(Long accountId, boolean net30) {
+		accountService.net30(accountId, net30);
+	}
+
+	public void suspendAccount(Long accountId, boolean status) {
+		accountService.suspendAccount(accountId, status);
+	}
+
+	public void sendPasswordEmail(String email) {
+		accountService.sendPasswordEmail(email);
+	}
+
+	public AccountView retrieveById(Long id) {
+		Account account = accountService.retrieveById(id);
+
+		return new AccountView(account);
+	}
+
+	public AccountService getAccountService() {
+		return accountService;
+	}
+
+	public void setAccountService(AccountService accountService) {
+		this.accountService = accountService;
+	}
+
+	public void setDefaultAccountType(Long accountTypeId) {
+		this.accountService.setDefaultAccountType(accountTypeId);
+	}
+}

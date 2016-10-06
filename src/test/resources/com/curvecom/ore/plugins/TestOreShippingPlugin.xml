@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<shipping_level id="1" description="Standard" serviceLevel="GRND"/>
+	<shipping_rate id="1" serviceLevel="GRND" amount="0" rate="8.50" shipping_level_id="1"/>
+	<shipping_rate id="2" serviceLevel="GRND" amount="26" rate="10.50" shipping_level_id="1"/>
+	<shipping_rate id="3" serviceLevel="GRND" amount="50" rate="12.50" shipping_level_id="1"/>
+    <shipping_rate id="4" serviceLevel="GRND" amount="75" rate="18.50" shipping_level_id="1"/>
+    <shipping_rate id="5" serviceLevel="GRND" amount="100" rate="22.50" shipping_level_id="1"/>
+    <shipping_rate id="6" serviceLevel="GRND" amount="200" rate="25.50" shipping_level_id="1"/>
+</dataset>

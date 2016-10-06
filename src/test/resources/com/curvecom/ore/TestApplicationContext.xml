@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/dataset.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+<settings name="image.gallery.dir" value="/tmp/gallery/"/>
+<settings name="customer.support.email" value="john@petrocik.net"/>
+<settings name="warehouse.email.rpct" value="john@petrocik.net"/>                     
+<settings name="warehouse.email.subject" value="Daily Shipping Files"/>                       
+<settings name="warehouse.outbound.dir" value="/tmp/estore/outbound/"/>
+<settings name="warehouse.inbound.dir" value="/tmp/estore/inbound/"/>
+<settings name="email.sender" value="john@petrocik.net"/>
+<settings name="email.domain" value="john@petrocik.net"/>
+<settings name="mail.smtp" value="localhost"/>
+<settings name="www.root" value="/tmp/html/"/>
+<settings name="authorizeNet.testMode" value="true"/>
+<settings name="authorizeNet.transactionKey" value="w70vLBF2VE+jSjAk0K9gZoH7IyofzKa+"/>
+<settings name="authorizeNet.apiLogin" value="STtP/rVPga4za3WJNhWxmQ=="/>                   
+<settings name="optIn.email.to" value="john@petrocik.met"/>
+
+</dataset>

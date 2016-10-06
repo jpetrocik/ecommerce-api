@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="item" name="org.psoft.ecommerce.data.Item">
+    <id name="id" column="id">
+      <generator class="org.hibernate.id.enhanced.SequenceStyleGenerator">
+        <param name="sequence_name">master_seq</param>
+        <param name="increment_size">1</param>
+        <param name="value_column">id</param>
+      </generator>
+    </id>
+    <property name="isActive" not-null="true"/>
+    <property name="longDescr"/>
+    <property name="partNum" not-null="true"/>
+    <property name="shortDescr"/>
+    <property name="title" not-null="true"/>
+    <property name="keywords"/>
+    <many-to-one column="product_id" class="org.psoft.ecommerce.data.Product" name="product"/>
+    <property name="upc"/>
+    <set cascade="all-delete-orphan" access="field" outer-join="true" table="pricing" name="pricing">
+      <key column="item_id"/>
+      <one-to-many class="org.psoft.ecommerce.data.Pricing"/>
+    </set>
+    <set cascade="all-delete-orphan" access="field" outer-join="true" table="attribute_value" name="attributeValues">
+      <key column="item_id"/>
+      <one-to-many class="org.psoft.ecommerce.data.AttributeValue"/>
+    </set>
+    <list cascade="all-delete-orphan" access="field" lazy="true" table="image" name="images">
+      <key column="foreign_id"/>
+      <index column="sequence"/>
+      <one-to-many class="org.psoft.ecommerce.data.Image"/>
+    </list>
+  </class>
+</hibernate-mapping>

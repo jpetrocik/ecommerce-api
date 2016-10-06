@@ -1,0 +1,125 @@
+package org.psoft.ecommerce.admin.rest;
+
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.psoft.ecommerce.data.model.Account;
+import org.psoft.ecommerce.data.model.OrderDtl;
+import org.psoft.ecommerce.rest.view.AccountView;
+import org.psoft.ecommerce.rest.view.CartView;
+import org.psoft.ecommerce.rest.view.OrderDtlView;
+import org.psoft.ecommerce.service.CartService;
+
+public class CartRpcService {
+
+	CartService cartService;
+
+	public OrderDtlView add(Long itemId, Integer qty) {
+		cartService.merge();
+
+		OrderDtl orderDtl = cartService.add(itemId, qty);
+
+		return new OrderDtlView(orderDtl);
+
+	}
+
+	public void addOrder(Long orderId) {
+		cartService.merge();
+
+		cartService.addOrder(orderId);
+	}
+
+	public void clear() {
+		cartService.clear();
+	}
+
+	public CartView getCart() {
+		CartView cartView = new CartView();
+		cartView.setTotal(this.getTotal());
+		cartView.setSubtotal(this.getSubtotal());
+		cartView.setDiscount(this.getDiscount());
+		cartView.setTax(this.getTax());
+		cartView.setShipping(this.getShipping());
+
+		cartView.setItems(this.getItems());
+
+		return cartView;
+	}
+
+	public AccountView getAccount() {
+
+		Account account = cartService.getAccount();
+
+		if (account != null)
+			return new AccountView(account);
+
+		return null;
+	}
+
+	public AccountView setAccount(Long accountId) {
+		cartService.merge();
+
+		Account account = cartService.setAccount(accountId);
+
+		return new AccountView(account);
+
+	}
+
+	public void setShippingLevel(String serviceLevel) {
+
+		cartService.setShippingLevel(serviceLevel);
+	}
+
+	public Double getDiscount() {
+		cartService.merge();
+
+		return cartService.getDiscount();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<OrderDtlView> getItems() {
+		cartService.merge();
+
+		return (List<OrderDtlView>) CollectionUtils.collect(cartService.getItems(), new Transformer() {
+
+			public Object transform(Object input) {
+				return new OrderDtlView((OrderDtl) input);
+			}
+
+		});
+	}
+
+	public Double getShipping() {
+		cartService.merge();
+
+		return cartService.getShipping();
+	}
+
+	public String getShippingDescription() {
+		cartService.merge();
+
+		return cartService.getShippingLevel().getDescription();
+	}
+
+	public Double getSubtotal() {
+		return cartService.getSubtotal();
+	}
+
+	public Double getTax() {
+		return cartService.getTax();
+	}
+
+	public Double getTotal() {
+		return cartService.getTotal();
+	}
+
+	public CartService getCartService() {
+		return cartService;
+	}
+
+	public void setCartService(CartService cartService) {
+		this.cartService = cartService;
+	}
+
+}

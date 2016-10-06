@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/dataset.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    
+    <product id="1" title="Product1"/> 
+    <image id="1" alt="Alternative Text" description="Description" filename="52_24_3_0.jpg" mimeType="image/jpg" sequence="0" active="1" foreign_id="1"/>
+    <image alt="Alternative Text" description="Description" filename="52_24_3_0.jpg" mimeType="image/jpg" sequence="1" active="1" foreign_id="1"/>
+</dataset> 

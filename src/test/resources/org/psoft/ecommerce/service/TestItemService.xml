@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<account_type id="1" name="Default" isDefault="true"  />
+	<account_type id="2" name="Pro" />
+	
+	<account_type_to_pricing_level account_type_id="1" pricing_level_id="1"/>
+	<account_type_to_pricing_level account_type_id="2" pricing_level_id="2"/>
+	
+	<item id="1" status="active" partNum="sku1" title="item1"/>
+	
+	<pricing_level id="1" name="Default"/>
+	<pricing_level id="2" name="Pro"/>
+
+	<pricing id="1" item_id="1" price="10.35" startDate="2008-01-01" pricing_level_id="1"/>
+	<pricing id="2" item_id="1" price="8.50" startDate="2008-01-01" pricing_level_id="2"/>
+
+</dataset>

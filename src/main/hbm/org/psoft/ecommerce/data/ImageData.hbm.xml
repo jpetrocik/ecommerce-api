@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="image" name="org.psoft.ecommerce.data.ImageData">
+    <id name="id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="raw" column="raw" access="field" type="binary"/>
+    <property name="filename"/>
+    <property name="thumbnail"/>
+    <property name="alt"/>
+    <property name="description"/>
+    <property name="sequence"/>
+    <property name="active"/>
+    <property name="mimeType"/>
+    <property name="group" column="gallery"/>
+  </class>
+</hibernate-mapping>

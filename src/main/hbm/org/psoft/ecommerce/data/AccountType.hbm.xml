@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="account_type" name="org.psoft.ecommerce.data.AccountType">
+    <id name="id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="name" not-null="true"/>
+    <property name="isDefault"/>
+    <set cascade="save-update" access="field" table="account_type_to_pricing_level" name="pricingLevels">
+      <key column="account_type_id"/>
+      <many-to-many class="org.psoft.ecommerce.data.PricingLevel" column="pricing_level_id"/>
+    </set>
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/estore.xsd">
+    <account_type id="1" name="Consumer"/>
+
+    <account_type_to_pricing_level account_type_id="1" pricing_level_id="1"/>
+
+    <pricing_level id="1" name="Web"/>
+
+    <account id="1" email="john@email.com" password="password" shipping_address_id="1" billing_address_id="2"/>
+
+    <address id="1" name="John Doe" address1="111 Nowhere St." city="Long Beach" postalCode="90815" state="CA"/>
+    <address id="2" name="John Doe" address1="111 Nowhere St." city="Long Beach" postalCode="90815" state="CA"/>
+
+    <item id="1" partNum="SDG123" isActive="true"/>
+    
+    <pricing id="1" startDate="2010-01-01" item_id="1" price="10.00" pricing_level_id="1"/>
+
+    <shipping_level id="1" serviceLevel="00" description="Flat Rate"/>
+    
+    <coupon_values id="1" code="TT1" couponClass="org.psoft.ecommerce.coupons.DiscountAmtCoupon" active="1" value1="20.0" value2="10.0" startDate='2010-10-11' exculsive="1" account_type_id="1"/>
+
+    <coupon_values id="2" code="TT2" couponClass="org.psoft.ecommerce.coupons.DiscountAmtCoupon" active="1" value1="20.0" value2="10.0" startDate='2010-10-11' exculsive="1" account_type_id="1"/>
+
+    <order_tbl id="1" account_id="1" billing_address_id="1" shipping_address_id="2"/>
+
+    <order_to_coupon order_id="1" coupon_id="1"/>
+
+</dataset>

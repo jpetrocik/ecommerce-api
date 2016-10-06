@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/estore.xsd">
+    
+    <!-- Root -->
+    <category id="1" isActive="true" title="category1"/>
+
+    <!-- Leaf Of Root -->
+    <category id="2" isActive="true" title="category2"/>
+    
+    <!-- Node of Root -->
+    <!-- category id="3" isActive="true" title="category3"/-->
+    
+    
+    <!-- Leaf Of Category3 -->
+    <!-- category id="4" isActive="true" title="category4"/-->
+    <!-- category id="5" isActive="false" title="category5"/-->
+    
+    <category_to_category sequence="0" from_category_id="1" to_category_id="2"/>
+    <!--  -->category_to_category sequence="1" from_category_id="1" to_category_id="3"/-->
+    <!-- category_to_category sequence="0" from_category_id="3" to_category_id="4"/-->
+    <!-- category_to_category sequence="1" from_category_id="3" to_category_id="5"/-->
+    
+
+    <!-- Product of Category 2 -->
+    <category_to_product category_id="2" product_id="6" sequence="0"/>
+    <product id="6" code="product1" title="product1" isActive="true"/>
+
+    <!-- Product of Category 4 -->
+    <!-- category_to_product category_id="4" product_id="7" sequence="0"/-->
+    <!-- product id="7" code="product2" title="product2" isActive="false"/-->
+    
+    <!-- Product of Category 5 -->
+    <!-- category_to_product category_id="5" product_id="8" sequence="0"/-->
+    <!-- product id="8" code="product3" title="product3"  isActive="true"/-->
+
+    <image filename="Blank" alt="" sequence="0"/>
+    
+    <master_seq id="9"/>
+</dataset>

@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/estore.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <shipping_level id="1" serviceLevel="02" description="UPS Ground"/>
+    
+    <account_type id="1" name="Consumer" isDefault="1"/>
+    <account_type_to_pricing_level account_type_id="1"  pricing_level_id="1"/>
+
+    <account id="1" email="john@domain.com" billing_address_id="1" shipping_address_id="2" account_type_id="1"/>
+
+    <address id="1" name="John Doe" phone="555-555-1234" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+    <address id="2" name="John Doe" phone="555-555-1234" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+
+    <item id="1" isActive="true" status="active" partNum="sku1" title="Test Part 1"/>
+    <item id="2" isActive="true"  status="active" partNum="sku2" title="Test Part 2"/>
+
+    <pricing_level id="1" name="WEB" />
+
+    <pricing id="1" price="10" startDate="2009-01-01" sequence="0"  item_id="1" pricing_level_id="1" minimum="1" multiplier="1" />
+    <pricing id="2" price="15" startDate="2009-01-01" sequence="0"  item_id="2" pricing_level_id="1" minimum="1" multiplier="1" />
+</dataset>

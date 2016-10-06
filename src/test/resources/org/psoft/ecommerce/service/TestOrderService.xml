@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/dataset.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<shipping_level id="1" description="FedEx Ground" serviceLevel="GND"/>
+	
+    <account id="1" email="jdoe@something.com" password="password" shipping_address_id="1" billing_address_id="1" />
+    <address id="1" name="John Doe" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+    <address id="2" name="John Doe" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+    <order_tbl id="1" shipping_level_id="1" createdOn="2010-01-01" orderNum="100-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Shipped" discount="0" shipping="0" tax="0" total="0" subtotal="0"/>
+    <order_tbl id="2" shipping_level_id="1" createdOn="2010-01-01" orderNum="102-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Processing" discount="0" shipping="0" tax="0" total="0" subtotal="0"/>
+</dataset>

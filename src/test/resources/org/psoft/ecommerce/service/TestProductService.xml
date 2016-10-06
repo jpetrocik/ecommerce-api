@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/dataset.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <category id="1"/>
+    <category id="2"/>
+    <category_to_product category_id="1"  product_id="2" sequence="0"/>
+    <category_to_product category_id="1"  product_id="3" sequence="1"/>
+    <category_to_product category_id="2"  product_id="4" sequence="0"/>
+    
+    <product id="1" title="product1" keywords="blue big"/> 
+    <product id="2" title="product2" keywords="shirt small"/> 
+    <product id="3" title="product3" keywords="medium blue "/> 
+    <product id="4" title="product4" keywords="shirt redish large"/> 
+</dataset> 

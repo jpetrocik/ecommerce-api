@@ -1,0 +1,106 @@
+package org.psoft.ecommerce.rpc;
+
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.psoft.ecommerce.data.AttributeName;
+import org.psoft.ecommerce.data.Item;
+import org.psoft.ecommerce.data.Product;
+import org.psoft.ecommerce.data.ProductAssociation;
+import org.psoft.ecommerce.rpc.view.AttributeNameView;
+import org.psoft.ecommerce.rpc.view.ItemView;
+import org.psoft.ecommerce.rpc.view.ProductAssociationView;
+import org.psoft.ecommerce.rpc.view.ProductView;
+import org.psoft.ecommerce.service.ProductService;
+
+
+public class ProductRpcService {
+	private static Log log = LogFactory.getLog(ProductRpcService.class);
+	
+	ProductService productService;
+
+	ProductViewTransformer productViewTransformer = new ProductViewTransformer();
+
+	public ProductView saveProduct(Long id, boolean isActive, String title, String longDescr, String keywords, String shortDescr,
+			String code) {
+		Product product = productService.saveProduct(id, isActive, title, longDescr, keywords, shortDescr, code);
+
+		return (ProductView) productViewTransformer.transform(product);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ProductView> retrieveByCategoryId(Long id) {
+		List<Product> results = productService.retrieveByCategoryId(id);
+		log.debug("Retrieved " + results.size() + " product for category " + id);
+		return (List<ProductView>) CollectionUtils.collect(results, productViewTransformer);
+	}
+
+	public ProductView retrieveById(Long id) {
+		return (ProductView) productViewTransformer.transform(productService.retrieveById(id));
+	}
+
+	public void removeItem(Long productId, Long itemId) {
+		productService.removeItem(productId, itemId);
+
+	}
+
+	public void removeCategory(Long productId, Long categoryId) {
+		productService.removeCategory(productId, categoryId);
+	}
+
+	public void addCategory(Long productId, Long categoryId) {
+		productService.addCategory(productId, categoryId);
+	}
+
+	public ItemView addItem(Long productId, Long itemId) {
+		Item item = productService.addItem(productId, itemId);
+
+		String stock = productService.stockStatus(item);
+
+		return new ItemView(item, stock);
+	}
+
+	public ProductAssociationView addProductAssociation(Long fromProductId, Long toProductId, String type) {
+		ProductAssociation productAssociation = productService.addProductAssociation(fromProductId, toProductId, type);
+
+		return new ProductAssociationView(productAssociation);
+	}
+
+	public void removeProductAssociation(Long fromProductId, Long toProductId, String type) {
+		productService.removeProductAssociation(fromProductId, toProductId, type);
+	}
+
+	public void removeAttributeName(Long productId, Long attributeNameId) {
+		productService.removeAttributeName(productId, attributeNameId);
+	}
+
+	public AttributeNameView addAttributeName(Long productId, String name) {
+		AttributeName attributeName = productService.addAttributeName(productId, name);
+
+		return new AttributeNameView(attributeName);
+	}
+
+	public class ProductViewTransformer implements Transformer {
+
+		public Object transform(Object object) {
+
+			Product product = (Product) object;
+			ProductView productView = new ProductView(product);
+
+			return productView;
+		}
+
+	}
+
+	public ProductService getProductService() {
+		return productService;
+	}
+
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
+
+}

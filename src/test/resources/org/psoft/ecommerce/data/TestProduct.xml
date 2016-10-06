@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/estore.xsd">
+	
+	<product id="1" title="product1" isActive="true"/>
+	
+	<item id="2" partNum="item1" title="item1" product_id="1" sequence="0"/>
+    <item id="3" partNum="item2" title="item2" product_id="1" sequence="1"/>
+	
+</dataset>

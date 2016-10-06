@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="order_dtl" name="org.psoft.ecommerce.data.OrderDtl">
+    <id name="id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="lineNumber" not-null="true"/>
+    <property name="price" not-null="true"/>
+    <property name="qty" not-null="true"/>
+    <many-to-one column="item_id" class="org.psoft.ecommerce.data.Item" not-null="true" name="item"/>
+    <many-to-one column="order_id" class="org.psoft.ecommerce.data.Order" not-null="true" name="order"/>
+  </class>
+</hibernate-mapping>

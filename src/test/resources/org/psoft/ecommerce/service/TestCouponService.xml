@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <account_type id="1" name="Consumer"/>
+	<coupon_values id="1" account_type_id="1" active="true" code="10FREE" couponClass="org.psoft.ecommerce.coupons.FreeShippingCoupon" startDate="2009-01-01" endDate="2020-12-31" value1="10" value2="GND"/> 
+	<coupon_values id="2" account_type_id="1" active="true" code="25FREE" couponClass="org.psoft.ecommerce.coupons.FreeShippingCoupon" startDate="2009-01-01" endDate="2020-12-31" value1="25" value2="GND"/> 
+	<coupon_values id="3" account_type_id="1" active="true" code="35FREE" couponClass="org.psoft.ecommerce.coupons.FreeShippingCoupon" startDate="2009-01-01" endDate="2020-12-31" value1="35" value2="GND"/> 
+</dataset>

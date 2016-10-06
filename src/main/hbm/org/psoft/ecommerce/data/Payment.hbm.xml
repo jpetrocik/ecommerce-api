@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="payment" name="org.psoft.ecommerce.data.Payment">
+    <id name="id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="account" access="field" not-null="true" type="byte[]"/>
+    <property name="type" not-null="true"/>
+    <property name="expires" not-null="true"/>
+    <many-to-one column="order_id" access="field" class="org.psoft.ecommerce.data.Order" name="order"/>
+    <property name="status" not-null="true"/>
+    <property name="authCode"/>
+    <property name="avs"/>
+    <property name="refNum"/>
+    <property name="amount"/>
+    <property name="capturedAmount"/>
+    <property name="cvnResp"/>
+    <property name="responseCode"/>
+    <property name="message"/>
+  </class>
+</hibernate-mapping>

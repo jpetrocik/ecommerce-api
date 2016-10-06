@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/dataset.xsd">
+ 
+    <account_type id="2" name="Wholesale" />
+ 	
+    <account id="1" account_type_id="2" email="john@amce.com" password="apple" billing_address_id="1" shipping_address_id="2"/>
+    
+    <address id="1" name="John Doe" phone="555-555-1234" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+    <address id="2" name="John Doe" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+
+</dataset>

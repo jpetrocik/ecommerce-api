@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="shipment" name="org.psoft.ecommerce.data.Shipment">
+    <id name="id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="amount"/>
+    <property name="trackingNumber"/>
+    <property name="shipDate"/>
+    <set inverse="true" cascade="all-delete-orphan" access="field" table="shipment_dtl" name="shipmentDetails">
+      <key column="shipment_id"/>
+      <one-to-many class="org.psoft.ecommerce.data.ShipmentDetail"/>
+    </set>
+    <many-to-one column="order_id" access="field" class="org.psoft.ecommerce.data.Order" name="order"/>
+    <property name="orderNum"/>
+  </class>
+</hibernate-mapping>

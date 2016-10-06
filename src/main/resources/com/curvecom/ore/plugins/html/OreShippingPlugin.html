@@ -1,0 +1,6 @@
+<p>Ore Wholeseller Shipping Rates</p>
+<table>
+#foreach( $key in $plugin.settings.keySet() )
+    <tr><td>$key.substring(12):</td><td><input type="text" name="$key" size="5" value="$plugin.settings.get($key)" /></td></tr>
+#end
+</table>

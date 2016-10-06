@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/dataset.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ 	<settings name="warehouse.outbound.dir" value="/tmp/outbound"/>
+ 	<settings name="warehouse.inbound.dir" value="/tmp/inbound"/>
+ 	<settings name="warehouse.email.rpct" value="john@petrocik.net"/>
+ 	<settings name="warehouse.email.subject" value="Daily Orders"/>
+ 	 
+    <pricing_level id="1" name="WEB"/>
+
+    <account id="1" email="jdoe@something.com"/>
+    <address id="1" name="John Doe" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+    <address id="2" name="John Doe" address1="555 Somewhere St" city="Summerland" postalCode="99999" state="CA" />
+
+    <order_tbl id="1" createdOn="2009-01-01 12:45:00" orderNum="100-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Approved" subtotal="21.90" discount="0" shipping="5" tax="0" total="26.90" shipping_level_id="1"/>
+    <order_dtl id="1" lineNumber="0" price="10.35" qty="1" item_id="1" order_id="1"/>
+    <order_dtl id="2" lineNumber="1" price="11.55" qty="1" item_id="2" order_id="1"/>
+    
+    <order_tbl id="2" createdOn="2009-01-01 12:45:00" orderNum="102-1-1" account_id="1" shipping_address_id="1" billing_address_id="1" status="Approved" subtotal="10.35" discount="0" shipping="5" tax="0" total="15.35" shipping_level_id="1"/>
+    <order_dtl id="3" lineNumber="0" price="10.35" qty="1" item_id="1" order_id="2"/>
+
+    <order_tbl id="4" createdOn="2009-01-01 12:45:00" orderNum="2504-326-10" account_id="1" shipping_address_id="1" billing_address_id="1" status="Processing" subtotal="10.35" discount="0" shipping="5" tax="0" total="15.35" shipping_level_id="1"/>
+    <order_dtl id="5" lineNumber="0" price="40.00" qty="4" item_id="3" order_id="4"/>
+    <order_dtl id="6" lineNumber="1" price="40.00" qty="4" item_id="4" order_id="4"/>
+    <order_dtl id="7" lineNumber="2" price="20.00" qty="4" item_id="5" order_id="4"/>
+    <order_dtl id="8" lineNumber="3" price="20.00" qty="4" item_id="6" order_id="4"/>
+
+
+	<item id="1" status="active" partNum="sku1" title="Test Part 1"/>
+	<pricing id="1" price="10.35" startDate="2009-01-01" sequence="0" item_id="1" pricing_level_id="1"/>
+
+	<item id="2" status="active" partNum="sku2" title="Test Part 2"/>
+	<pricing id="2" price="11.55" startDate="2009-01-01" sequence="0" item_id="2" pricing_level_id="2"/>
+	
+    <item id="3" status="active" partNum="DD128A" title="Remeber Good Cat Bowl"/>
+    <pricing id="3" price="10.00" startDate="2009-01-01" sequence="0" item_id="3" pricing_level_id="2"/>
+
+    <item id="4" status="active" partNum="DD128B" title="Kitty Cat Cafe Cat Bowl"/>
+    <pricing id="4" price="10.00" startDate="2009-01-01" sequence="0" item_id="4" pricing_level_id="2"/>
+
+    <item id="5" status="active" partNum="M1220B" title="Kitty Cat Cafe Pet Placement"/>
+    <pricing id="5" price="5.00" startDate="2009-01-01" sequence="0" item_id="5" pricing_level_id="2"/>
+
+    <item id="6" status="active" partNum="M1220G" title="Remember Good Cat Pet Placement"/>
+    <pricing id="6" price="5.00" startDate="2009-01-01" sequence="0" item_id="6" pricing_level_id="2"/>
+
+	<shipping_level id="1" description="UPS Ground" serviceLevel="UPS_GRD"/>
+	<shipping_rate id="1" serviceLevel="UPS_GRD" rate="5.00" shipping_level_id="1"/>
+	<shipping_rate id="2" serviceLevel="UPS_GRD" state="HI" rate="15.00" shipping_level_id="1"/>
+	<shipping_rate id="3" serviceLevel="UPS_GRD" state="AK" rate="15.00" shipping_level_id="1"/>
+</dataset>

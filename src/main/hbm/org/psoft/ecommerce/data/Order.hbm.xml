@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="order_tbl" name="org.psoft.ecommerce.data.Order">
+    <id name="id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="createdOn" type="timestamp"/>
+    <property name="createdBy"/>
+    <property name="orderNum"/>
+    <property name="comments"/>
+    <property name="discount" not-null="true"/>
+    <property name="shipping" not-null="true"/>
+    <property name="tax" not-null="true"/>
+    <property name="total" not-null="true"/>
+    <property name="subtotal" not-null="true"/>
+    <list inverse="true" cascade="all-delete-orphan" access="field" table="order_dtl" name="details">
+      <key column="order_id"/>
+      <index column="lineNumber"/>
+      <one-to-many class="org.psoft.ecommerce.data.OrderDtl"/>
+    </list>
+    <many-to-one column="account_id" class="org.psoft.ecommerce.data.Account" not-null="true" name="account"/>
+    <many-to-one column="shipping_address_id" cascade="save-update" class="org.psoft.ecommerce.data.Address" not-null="true" name="shippingAddress"/>
+    <many-to-one column="billing_address_id" cascade="save-update" class="org.psoft.ecommerce.data.Address" not-null="true" name="billingAddress"/>
+    <many-to-one column="shipping_level_id" class="org.psoft.ecommerce.data.ShippingLevel" not-null="true" name="shippingLevel"/>
+    <property name="status"/>
+    <set cascade="all-delete-orphan" access="field" table="payment" name="payments">
+      <key column="order_id"/>
+      <one-to-many class="org.psoft.ecommerce.data.Payment"/>
+    </set>
+    <set cascade="all-delete-orphan" access="field" table="shipment" name="shipments">
+      <key column="order_id"/>
+      <one-to-many class="org.psoft.ecommerce.data.Shipment"/>
+    </set>
+    <set access="field" lazy="true" table="order_to_coupon" name="couponValues">
+      <key column="order_id"/>
+      <many-to-many class="org.psoft.ecommerce.data.CouponValues" column="coupon_id"/>
+    </set>
+  </class>
+</hibernate-mapping>

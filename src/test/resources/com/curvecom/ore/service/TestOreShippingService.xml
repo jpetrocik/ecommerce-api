@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<shipping_level id="1" serviceLevel="UPS_GRD"/>
+	<shipping_rate id="1" serviceLevel="UPS_GRD" amount="0" rate="5.00" shipping_level_id="1"/>
+	<shipping_rate id="2" serviceLevel="UPS_GRD" amount="50" rate="10.00" shipping_level_id="1"/>
+	<shipping_rate id="3" serviceLevel="UPS_GRD" amount="150" rate="15.00" shipping_level_id="1"/>
+</dataset>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class table="attribute_value" name="org.psoft.ecommerce.data.AttributeValue">
+    <id name="id" column="id">
+      <generator class="native"/>
+    </id>
+    <property name="value" column="attr_value" not-null="true"/>
+    <many-to-one column="attribute_name_id" cascade="save-update" access="field" class="org.psoft.ecommerce.data.AttributeName" not-null="true" name="attribute"/>
+  </class>
+</hibernate-mapping>

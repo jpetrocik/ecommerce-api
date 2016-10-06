@@ -1,0 +1,109 @@
+package org.psoft.ecommerce.rpc;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.lang.StringUtils;
+import org.psoft.ecommerce.data.AttributeValue;
+import org.psoft.ecommerce.data.Item;
+import org.psoft.ecommerce.data.Pricing;
+import org.psoft.ecommerce.rpc.view.AttributeValueView;
+import org.psoft.ecommerce.rpc.view.ItemView;
+import org.psoft.ecommerce.rpc.view.PricingView;
+import org.psoft.ecommerce.service.ItemService;
+
+public class ItemRpcService {
+
+	ItemService itemService;
+
+	ItemViewTransformer itemViewTransformer = new ItemViewTransformer();
+
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+	public void saveItem(Long id, boolean isActive, String title, String longDescr, String keywords, String shortDescr,
+			String partNum, String upc) {
+		itemService.saveItem(id, isActive, title, longDescr, keywords, shortDescr, partNum, upc);
+	}
+
+	public ItemView retrieveById(Long id) {
+		Item item = itemService.retrieveById(id);
+
+		return (ItemView) itemViewTransformer.transform(item);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<ItemView> retrieveByProductId(Long id) {
+		List<Item> results = itemService.retrieveByProductId(id);
+		return (List<ItemView>) CollectionUtils.collect(results, itemViewTransformer);
+	}
+
+	public void updatePriceExperation(Long priceId, String aDate) throws Exception {
+		Date endDate = dateFormat.parse(aDate);
+
+		itemService.updatePriceExperation(priceId, endDate);
+	}
+
+	public String expirePrice(Long priceId) {
+		Date endDate = new Date();
+
+		itemService.updatePriceExperation(priceId, endDate);
+
+		return dateFormat.format(endDate);
+	}
+
+	public PricingView addPrice(Long itemId, String pricingLevel, String startDate, String endDate, Double amount, Integer minimum, Integer mulitpilier)
+			throws Exception {
+
+		Pricing price = null;
+		if (StringUtils.isNotBlank(endDate)) {
+			price = itemService.addPrice(itemId, pricingLevel, dateFormat.parse(startDate), dateFormat.parse(endDate), amount, minimum, mulitpilier);
+		} else {
+			price = itemService.addPrice(itemId, pricingLevel, dateFormat.parse(startDate), null, amount, minimum, mulitpilier);
+		}
+
+		return new PricingView(price);
+	}
+
+	public Double lookupPricing(Long itemId, String accountType) {
+		Pricing pricing = itemService.retireveCurrentPricing(itemId, accountType);
+
+		return pricing.getPrice();
+
+	}
+
+	public void removeAttribute(Long itemId, Long attributeValueId) {
+		itemService.removeAttribute(itemId, attributeValueId);
+	}
+
+	public AttributeValueView addAttribute(Long itemId, Long attributeId, String value) {
+		AttributeValue attributeValue = itemService.addAttribute(itemId, attributeId, value);
+
+		return new AttributeValueView(attributeValue);
+	}
+
+	public ItemService getItemSerivce() {
+		return itemService;
+	}
+
+	public void setItemSerivce(ItemService itemSerivce) {
+		this.itemService = itemSerivce;
+	}
+
+	public class ItemViewTransformer implements Transformer {
+
+		public Object transform(Object object) {
+
+			Item item = (Item) object;
+
+			String stock = itemService.stockStatus(item);
+			ItemView itemView = new ItemView(item, stock);
+
+			return itemView;
+		}
+
+	}
+
+}

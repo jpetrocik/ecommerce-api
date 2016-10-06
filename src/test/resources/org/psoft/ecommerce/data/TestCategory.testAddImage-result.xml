@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/estore.xsd">
+
+    <image filename="52_24_3_0.jpg" alt="Plum" sequence="0" foreign_id="1"/>
+    <image filename="54_23_2_0.jpg" alt="Green" sequence="1" foreign_id="1"/>
+    <image filename="55_23_1_0.jpg" alt="Black" sequence="2" foreign_id="1"/>
+</dataset>

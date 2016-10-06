@@ -1,0 +1,9 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../target/xsd/estore.xsd">
+
+	<address name="John Doe" address1="111 Nowhere St." city="Long Beach" postalCode="90815" state="CA"/>
+    <address name="John Doe" address1="111 Nowhere St." city="Long Beach" postalCode="90815" state="CA"/>
+	
+	<account email="john@email.com" password="password" />
+	
+</dataset>
