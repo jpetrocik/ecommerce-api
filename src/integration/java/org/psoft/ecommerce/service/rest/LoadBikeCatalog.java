@@ -1,6 +1,10 @@
 package org.psoft.ecommerce.service.rest;
 
-import org.junit.Before;
+import java.io.IOException;
+import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.psoft.ecommerce.service.client.data.CategoryClientView;
 import org.psoft.ecommerce.service.client.data.ProductClientView;
@@ -11,39 +15,34 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.response.Response;
 
 @DataSet(value = {"CleanCatalog.xml"})
-public class AdminCatalogRestControllerTest extends UnitilsJUnit4 {
+public class LoadBikeCatalog extends UnitilsJUnit4 {
 
 	private static final String BASEURL = "http://localhost:8080";
 
-	@Before
-	public void setup(){
-//		String[] args = new String[] {};
-//		SpringApplication.run(ECommerceApplication.class, args);
-	}
-
 	@Test
-	public void testCatalogRegression() throws InterruptedException {
+	public void loadJensonUSA() throws IOException{
+		List<String> data = IOUtils.readLines(LoadBikeCatalog.class.getResourceAsStream("/bike_catalog.txt"));
 		
-		//drivetrain
-		CategoryClientView parentCategory = addCategory("DRIVETRAIN", 1L);
-		
-		//drivetrain/chainrings
-		parentCategory = addCategory("Chainrings", parentCategory.getId());
+		Long rootCategory = 1L;
 
-		//drivetrain/chainrings/chainring bolts
-		CategoryClientView category = addCategory("Chainring Bolts", parentCategory.getId());
-		deactiveCategory(category.getId());
-
-		//drivetrain/chainrings/chainrings
-		category = addCategory("Chainring", parentCategory.getId());
-
-		//add product
-		ProductClientView product = addProduct("Race Face Single Narrow Wide Chainring", category.getId());
-		
-		//add product
-		product = addProduct("Race Face Cinch Narrow Wide Chainring", category.getId());
-		deactiveProduct(product.getId());
-		
+		boolean first = true;
+		Long parent = rootCategory;
+		for (String l : data) {
+			
+			if (StringUtils.isBlank(l)) {
+				parent = rootCategory;
+				first = true;
+				continue;
+			}
+			
+			if (first) {
+				parent = addCategory(l, parent).getId();
+				first = false;
+			} else {
+				addCategory(l, parent).getId();
+			}
+				
+		}
 	}
 	
 	private ProductClientView addProduct(String name, Long categoryId) {
@@ -79,4 +78,6 @@ public class AdminCatalogRestControllerTest extends UnitilsJUnit4 {
 		return response.as(CategoryClientView.class);
 	}
 	
+
+
 }
