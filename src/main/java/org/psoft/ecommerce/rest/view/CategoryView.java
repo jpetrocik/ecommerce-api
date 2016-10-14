@@ -3,6 +3,7 @@ package org.psoft.ecommerce.rest.view;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.psoft.ecommerce.data.model.Category;
 
 public class CategoryView {
@@ -43,8 +44,10 @@ public class CategoryView {
 		return category.getId();
 	}
 
-	public String getKeywords() {
-		return category.getKeywords();
+	public String[] getKeywords() {
+		if (StringUtils.isNotBlank(category.getKeywords()))
+			return category.getKeywords().split(",");
+		return null;
 	}
 
 	public String getLongDescr() {

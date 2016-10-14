@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.psoft.ecommerce.data.model.Category;
 import org.psoft.ecommerce.data.model.Item;
+import org.psoft.ecommerce.data.model.Product;
 import org.psoft.ecommerce.rest.view.CategoryView;
 import org.psoft.ecommerce.rest.view.ItemView;
 import org.psoft.ecommerce.rest.view.ProductView;
@@ -12,7 +13,9 @@ import org.psoft.ecommerce.service.CategoryService;
 import org.psoft.ecommerce.service.ItemService;
 import org.psoft.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,53 +29,49 @@ public class CatalogRestController {
 	@Autowired
 	ProductService productService;
 
+	@Autowired
+	ItemService itemService;
+	
 	/**
 	 * Returns the category, the optional depth parameter returns additional sub
 	 * categories
 	 * 
-	 * @param id
+	 * @param categoryId
 	 *            of the category
 	 * @param depth
 	 *            the number of nested sub categories to return
 	 */
-	@RequestMapping("/category")
-	public CategoryView category(@RequestParam Long id,
+	@RequestMapping(path="/{categoryId}", method = {RequestMethod.GET})
+	public CategoryView categoryById(@PathVariable Long categoryId,
 			@RequestParam(required = false, defaultValue = "0") Integer depth) {
-		Category category = catalogService.byId(id);
+		Category category = catalogService.byId(categoryId);
 
-		return CategoryView.create(category, depth);
+		return CategoryView.create(category, depth, false);
 	}
 
-	@RequestMapping("/productsByCategory")
-	public List<ProductView> productsByCategoryId(Long id) {
-		List<ProductView> results = productService.byCategoryId(id).stream().map(p -> ProductView.create(p))
-				.collect(Collectors.toList());
-
-		return results;
+	@RequestMapping(path="/{categoryId}/product/", method = {RequestMethod.GET})
+	public List<ProductView> productsByCategory(@PathVariable Long categoryId,
+			@RequestParam(defaultValue="false") Boolean includeSubCategories) {
+		
+		List<Product> results = productService.byCategoryId(categoryId, false, includeSubCategories);
+		return results.stream().map(p -> ProductView.create(p)).collect(Collectors.toList());
 	}
 
-	@RequestMapping("/product")
-	public ProductView product(Long id) {
-		ProductView productView = ProductView.create(productService.byId(id));
-
-		return productView;
+	@RequestMapping(path="/product/{productId}", method = {RequestMethod.GET})
+	public ProductView productById(@PathVariable Long productId) {
+		Product product  = productService.byId(productId);
+		return ProductView.create(product);
 	}
 
-	@RequestMapping("/itemsByProduct")
-	public List<ItemView> itemsByProductId(Long id) {
-		// List<ItemView> results = itemService.retrieveByProductId(id).stream()
-		// .map(i -> ItemView.create(i)).collect(Collectors.toList());
-		//
-		// return results;
-		return null;
+	@RequestMapping(path="/product/{productId}/item/", method = {RequestMethod.GET})
+	public List<ItemView> itemsByProduct(Long productId){
+		return itemService.byProductId(productId).stream().map(i -> ItemView.create(i)).collect(Collectors.toList());
 	}
-
-	@RequestMapping("/item")
-	public ItemView item(Long id) {
-		// Item item = itemService.retrieveById(id);
-		//
-		// return ItemView.create(item);
-		return null;
+	
+	@RequestMapping(path="/item/{itemId}", method = {RequestMethod.GET})
+	public List<ItemView> itemById(@PathVariable Long itemId) {
+		List<Item> results = itemService.byProductId(itemId);
+		return results.stream().map(i -> ItemView.create(i)).collect(Collectors.toList());
 	}
-
+	
 }

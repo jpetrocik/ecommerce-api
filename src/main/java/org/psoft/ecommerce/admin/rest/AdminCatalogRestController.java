@@ -1,5 +1,6 @@
 package org.psoft.ecommerce.admin.rest;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,8 +16,11 @@ import org.psoft.ecommerce.service.ItemService;
 import org.psoft.ecommerce.service.PricingLevelService;
 import org.psoft.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,8 +41,8 @@ public class AdminCatalogRestController {
 	@Autowired
 	PricingLevelService pricingLevelService;
 	
-	@RequestMapping("/addCategory")
-	public CategoryView addCategory(@RequestParam Long parentId, @RequestParam String name,
+	@RequestMapping(path="/{parentId}", method = {RequestMethod.POST})
+	public CategoryView addCategory(@PathVariable Long parentId, @RequestParam String name,
 			@RequestParam(required = false) String longDescr, @RequestParam(required = false) String shortDescr,
 			@RequestParam(required = false) String keywords, @RequestParam(required = false) Integer sequence,
 			@RequestParam(required = false) Boolean active) {
@@ -48,8 +52,17 @@ public class AdminCatalogRestController {
 		return CategoryView.create(category, 0, false);
 	}
 
-	@RequestMapping("/saveCategory")
-	public CategoryView saveCategory(@RequestParam Long categoryId, @RequestParam(required = false) String name,
+	@RequestMapping(path="/{categoryId}", method = {RequestMethod.GET})
+	public CategoryView categoryById(@PathVariable Long categoryId,
+			@RequestParam(required = false, defaultValue = "0") Integer depth,
+			@RequestParam(defaultValue="false") Boolean includeInactive) {
+		Category category = catalogService.byId(categoryId);
+		
+		return CategoryView.create(category, depth, includeInactive);
+	}
+
+	@RequestMapping(path="/{categoryId}", method = {RequestMethod.PUT})
+	public CategoryView saveCategory(@PathVariable Long categoryId, @RequestParam(required = false) String name,
 			@RequestParam(required = false) String longDescr, @RequestParam(required = false) String shortDescr,
 			@RequestParam(required = false) String keywords, @RequestParam(required = false) Integer sequence,
 			@RequestParam(required = false) Boolean active) {
@@ -59,43 +72,24 @@ public class AdminCatalogRestController {
 		return CategoryView.create(category, 0, false);
 	}
 
-	@RequestMapping("/deleteCategory")
-	public void deleteCategory(@RequestParam Long categoryId) {
+	@RequestMapping(path="/{categoryId}", method = {RequestMethod.DELETE})
+	public void deleteCategory(@PathVariable Long categoryId) {
 		catalogService.deleteCategory(categoryId);
 	}
 
-	@RequestMapping("/categoryById")
-	public CategoryView categoryById(@RequestParam Long categoryId,
-			@RequestParam(required = false, defaultValue = "0") Integer depth,
-			@RequestParam(defaultValue="false") Boolean includeInactive) {
-		Category category = catalogService.byId(categoryId);
-
-		return CategoryView.create(category, depth, includeInactive);
-	}
-
-	@RequestMapping("/addToCategory")
-	public void addSubcategory(@RequestParam Long parentId, @RequestParam Long categoryId,
+	@RequestMapping(path="/{parentId}/{categoryId}", method = {RequestMethod.PUT})
+	public void addSubcategory(@PathVariable Long parentId, @PathVariable Long categoryId,
 			@RequestParam(required = false) Integer index) {
 		catalogService.addSubcategory(parentId, categoryId, index);
 	}
 
-	@RequestMapping("/removeFromCategory")
-	public void removeSubcategory(@RequestParam Long parentId, @RequestParam Long categoryId) {
+	@RequestMapping(path="/{parentId}/{categoryId}", method = {RequestMethod.DELETE})
+	public void removeSubcategory(@PathVariable Long parentId, @PathVariable Long categoryId) {
 		catalogService.removeSubcategory(parentId, categoryId);
 	}
 
-	@RequestMapping("/addProductToCategory")
-	public void addProductToCategory(@RequestParam Long categoryId, @RequestParam Long productId) {
-		catalogService.addProduct(categoryId, productId);
-	}
-
-	@RequestMapping("/removeProductFromCategory")
-	public void removeProductFromCategory(@RequestParam Long categoryId, @RequestParam Long productId) {
-		catalogService.removeProduct(categoryId, productId);
-	}
-	
-	@RequestMapping("/productsByCategory")
-	public List<ProductView> productsByCategory(@RequestParam Long categoryId,
+	@RequestMapping(path="/{categoryId}/product/", method = {RequestMethod.GET})
+	public List<ProductView> productsByCategory(@PathVariable Long categoryId,
 			@RequestParam(defaultValue="false") Boolean includeSubCategories,
 			@RequestParam(defaultValue="false") Boolean includeInactive) {
 		
@@ -103,29 +97,13 @@ public class AdminCatalogRestController {
 		return results.stream().map(p -> ProductView.create(p)).collect(Collectors.toList());
 	}
 
-	@RequestMapping("/productById")
-	public ProductView productById(Long productId) {
-		Product product  = productService.byId(productId);
-		return ProductView.create(product);
+	@RequestMapping(path="/{categoryId}/product/{productId}", method = {RequestMethod.PUT})
+	public void addProductToCategory(@PathVariable Long categoryId, @PathVariable Long productId) {
+		catalogService.addProduct(categoryId, productId);
 	}
 
-	@RequestMapping("/addProductAttribute")
-	public void addProductAttribute(Long productId, String name) {
-		productService.addAttributeType(productId, name);
-	}
-
-	@RequestMapping("/removeProductAttribute")
-	public void removeProductAttribute(Long productId, Long attributeNameId) {
-		productService.removeAttributeType(productId, attributeNameId);
-	}
-
-	@RequestMapping("/addProductItem")
-	public void addProductItem(Long productId, Long itemId) {
-		productService.addItem(productId, itemId);
-	}
-
-	@RequestMapping("/addProduct")
-	public ProductView addProduct(@RequestParam Long categoryId, @RequestParam String name,
+	@RequestMapping(path="/{categoryId}/product", method = {RequestMethod.POST})
+	public ProductView addProduct(@PathVariable Long categoryId, @RequestParam String name,
 			@RequestParam(required = false) String longDescr, @RequestParam(required = false) String shortDescr,
 			@RequestParam(required = false) String keywords, @RequestParam(required = false) String  productCode,
 			@RequestParam(required = false) Boolean active) {
@@ -134,8 +112,19 @@ public class AdminCatalogRestController {
 		return ProductView.create(product);
 	}
 
-	@RequestMapping("/saveProduct")
-	public ProductView saveProduct(@RequestParam Long productId, @RequestParam(required = false) String name,
+	@RequestMapping(path="/{categoryId}/product/{productId}", method = {RequestMethod.DELETE})
+	public void removeProductFromCategory(@PathVariable Long categoryId, @PathVariable Long productId) {
+		catalogService.removeProduct(categoryId, productId);
+	}
+
+	@RequestMapping(path="/product/{productId}", method = {RequestMethod.GET})
+	public ProductView productById(@PathVariable Long productId) {
+		Product product  = productService.byId(productId);
+		return ProductView.create(product);
+	}
+
+	@RequestMapping(path="/product/{productId}", method = {RequestMethod.PUT})
+	public ProductView saveProduct(@PathVariable Long productId, @RequestParam(required = false) String name,
 			@RequestParam(required = false) String longDescr, @RequestParam(required = false) String shortDescr,
 			@RequestParam(required = false) String keywords, @RequestParam(required = false) String productCode,
 			@RequestParam(required = false) Boolean active) {
@@ -144,59 +133,78 @@ public class AdminCatalogRestController {
 		return ProductView.create(product);
 	}
 
-	@RequestMapping("/itemById")
-	public List<ItemView> itemById(Long itemId) {
-		List<Item> results = itemService.byProductId(itemId);
-		return results.stream().map(i -> ItemView.create(i)).collect(Collectors.toList());
-	}
-	
-	@RequestMapping("/addItemAttribute")
-	public void addItemAttribute(Long itemId, Long attributeId, String value){
-		itemService.addAttribute(itemId, attributeId, value);
-	}
-	
-	@RequestMapping("/removeItemAttribute")
-	public void removeItemAttribute(Long itemId, Long attributeValueId){
-		itemService.removeAttribute(itemId, attributeValueId);
+	@RequestMapping(path="/product/{productId}/attribute", method = {RequestMethod.PUT})
+	public void addProductAttribute(@PathVariable Long productId, @RequestParam String name) {
+		productService.addAttributeType(productId, name);
 	}
 
-	@RequestMapping("/addPricing")
-	public void addPrice(Long itemId, Long attributeId, String value){
-		itemService.addAttribute(itemId, attributeId, value);
+	@RequestMapping(path="/product/{productId}/attribute/{attributeNameId}", method = {RequestMethod.DELETE})
+	public void removeProductAttribute(@PathVariable Long productId, @PathVariable Long attributeNameId) {
+		productService.removeAttributeType(productId, attributeNameId);
 	}
 
-	@RequestMapping("/currentPricing")
-	public PricingView currentPricing(Long item, String accountType){
-		return PricingView.create(itemService.retireveCurrentPricing(item, accountType));
-	}
-	
-	@RequestMapping("/itemByPartNum")
-	public ItemView itemByPartNum(String partNum){
-		return ItemView.create(itemService.byPartNumber(partNum));
-	}
-	
-	@RequestMapping("/itemByProduct")
-	public List<ItemView> itemsByProduct(Long productId){
-		return itemService.byProductId(productId).stream().map(i -> ItemView.create(i)).collect(Collectors.toList());
-	}
-	
-	@RequestMapping("/saveItem")
-	public ItemView saveItem(Long itemId, Boolean active, String name, String longDescr, String shortDescr, String keywords, String partNum, String upc){
-		Item item = itemService.saveItem(itemId, null, active, name, longDescr, shortDescr, keywords, partNum, upc);
-		return ItemView.create(item);
-	}
-	
-	@RequestMapping("/addItem")
-	public ItemView addItem(Boolean active, Long productId, String name, String longDescr, String shortDescr, String keywords, String partNum, String upc){
+	@RequestMapping(path="/product/{productId}/item/", method = {RequestMethod.POST})
+	public ItemView addItem(@PathVariable Long productId, @RequestParam String name, @RequestParam(required = false) String longDescr, 
+			@RequestParam(required = false) String shortDescr, @RequestParam(required = false) String keywords, @RequestParam String partNum, 
+			@RequestParam(required = false) String upc, @RequestParam(defaultValue = "true") Boolean active){
 		Item item = itemService.saveItem(null, productId, active, name, longDescr, shortDescr, keywords, partNum, upc);
 		return ItemView.create(item);
 	}
 	
-	public void createPricingLevel(String name) {
-		savePricingLevel(null, name);
+	@RequestMapping(path="/product/{productId}/item/", method = {RequestMethod.GET})
+	public List<ItemView> itemsByProduct(Long productId){
+		return itemService.byProductId(productId).stream().map(i -> ItemView.create(i)).collect(Collectors.toList());
 	}
 	
-	public void savePricingLevel(Long pricingLevelId, String name) {
-		pricingLevelService.savePricingLevel(pricingLevelId, name);
+	@RequestMapping(path="/product/{productId}/item/{itemId}", method = {RequestMethod.PUT})
+	public void addProductItem(@PathVariable Long productId, @PathVariable Long itemId) {
+		productService.addItem(productId, itemId);
+	}
+
+	@RequestMapping(path="/item/{itemId}", method = {RequestMethod.GET})
+	public List<ItemView> itemById(@PathVariable Long itemId) {
+		List<Item> results = itemService.byProductId(itemId);
+		return results.stream().map(i -> ItemView.create(i)).collect(Collectors.toList());
+	}
+	
+	@RequestMapping(path="/item/{itemId}/attribute/{attributeId}", method = {RequestMethod.PUT})
+	public void addItemAttribute(@PathVariable Long itemId, @PathVariable Long attributeId, @RequestParam String value){
+		itemService.addAttribute(itemId, attributeId, value);
+	}
+	
+	@RequestMapping(path="/item/{itemId}/attribute/{attributeValueId}", method = {RequestMethod.DELETE})
+	public void removeItemAttribute(@PathVariable Long itemId, @PathVariable Long attributeValueId){
+		itemService.removeAttribute(itemId, attributeValueId);
+	}
+
+	@RequestMapping(path="/item/{itemId}/pricing", method = {RequestMethod.GET})
+	public PricingView currentPricing(@PathVariable Long item, @RequestParam String accountType){
+		return PricingView.create(itemService.retireveCurrentPricing(item, accountType));
+	}
+	
+	@RequestMapping(path="/item/{itemId}/pricing", method = {RequestMethod.PUT})
+	public void addPrice(@PathVariable Long itemId, @RequestParam String level, @RequestParam(required = false) @DateTimeFormat(pattern="yyyy-MM-dd") Date startDate, 
+			@RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date endDate, 
+			@RequestParam Double price, @RequestParam(defaultValue = "1") Integer minimum,  @RequestParam(defaultValue = "1") Integer multiplier){
+		itemService.addPrice(itemId, level, startDate, endDate, price, minimum, multiplier);
+	}
+
+	@RequestMapping(path = "/item", method = {RequestMethod.GET})
+	public ItemView itemByPartNum(@RequestParam String partNum){
+		return ItemView.create(itemService.byPartNumber(partNum));
+	}
+	
+	
+	@RequestMapping(path="/item/{itemId}", method = {RequestMethod.PUT})
+	public ItemView saveItem(@PathVariable Long itemId, @RequestParam(defaultValue = "true") Boolean active, @RequestParam String name, 
+			@RequestParam(required = false) String longDescr, @RequestParam(required = false) String shortDescr, @RequestParam(required = false) String keywords,
+			@RequestParam String partNum, @RequestParam(required = false)  String upc){
+		Item item = itemService.saveItem(itemId, null, active, name, longDescr, shortDescr, keywords, partNum, upc);
+		return ItemView.create(item);
+	}
+	
+	@RequestMapping(path = "/pricingLevel", method = {RequestMethod.POST})
+	public void addPricingLevel(@RequestParam String name) {
+		pricingLevelService.savePricingLevel(null, name);
 	}
 }
